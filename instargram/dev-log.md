@@ -112,3 +112,74 @@ def add_comment(self, user, content):
     return self.post_set.create(author=user, content=content)
 ```
 - 외부에서 user값과 content값을 받아서 COMMENT모델에 해당 데이터를 생성한다.
+
+### 좋아요 개수를 세는 인스턴스를 프로퍼티로 표현
+- 그 전에 프로퍼티의 개념이 잘 안서서 개념을 우선 정리해보겠다.
+
+```python
+class Monster():
+    angelmon = '엔젤몬'
+
+    def __init__(self, name):
+        self.name = name
+
+    def digimon(self,):
+        return '{}은 디지몬입니다.'.format(
+            self.name,
+        )
+
+>>> monster = Monster('파닥몬')
+>>> monster.digimon()
+# out : '파닥몬은 디지몬입니다.'
+
+>>> monster.name
+# out : '파닥몬'
+
+>>> monster.name = '아구몬'
+>>> monster.name
+# out : '아구몬'
+```
+- 위와 같이 객체를 monster 변수에 할당하고 해당 객체가 갖고 있는 속성을 이용해서 바로 접근과 변경이 가능하다.
+- 파이썬은 다른 객체 지향 언어와 달리 private, protected 개념이 구체적으로 없는 것으로 알고 있다.
+- 접근 제한에 대한 개념이 뚜렷한 언어의 경우, getter와 setter를 통해 데이터에 접근하고, 변경이나 삭제를 할 수 있다.
+- 하지만 파이썬은 그렇지 않은데 왜 굳이 property를 사용하는지 이해가 안됐다. 알아본 결과,
+- 첫째, 추후 추가적인 무엇인가 필요한 경우, property에 추가하면 기존 코드가 손상되지 않는다.
+- 둘째, 데이터 바인딩하기 좋다.
+
+```python
+class Monster():
+    angelmon = '엔젤몬'
+
+    def __init__(self, name):
+        self.name = name
+
+    def digimon(self):
+        return '{}은 디지몬입니다.'.format(
+            self.name,
+        )
+
+    @property
+    def name(self):
+        return '{}은 진화하면 {}이 됩니다.'.format(
+            self.name,
+            angelmon
+        )
+
+>>> monster = Monster('파닥몬')
+>>> monster.digimon()
+# out : can't set attribute
+```
+- name을 프로퍼티로 지정하고나니 일반적인 인스턴스 접근 방식으로는 해당 can't set attribute 라는 에러를 뿜뿜하며 접근할 수 없었다.
+
+```python
+>>> monster.name
+# out : '파닥몬'
+```
+- 이렇게 얻은 '파닥몬'의 문자열 데이터는 클래스 멤버인 self.name에 직접 접근한 것이 아니라 프로퍼티로 같은 데이터 값의 사본을 출력해준 것이다.
+- 솔직히 기존 코드가 손상됨으로써 오는 피해가 얼마나 막대한지 실감은 안 난다. 하지만 그렇다고 하니 비로소 납득하고 프로퍼티로 좋아요 개수를 세는 데이터에 접근해보겠다.
+
+```python
+# POST에 대한 좋아요 개수와 COMMENT에 대한 좋아요 개수 둘 다 필요하므로 두 모델에 추가했다.
+def like_count(self):
+    return self.like_users.count()
+```
