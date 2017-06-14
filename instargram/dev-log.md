@@ -1,8 +1,8 @@
 #### 0. 어플리케이션 'post'를 생성하고, settings.py에 등록
 
 #### 1. 모델 설계하기
+- [Click!](https://github.com/bbungsang/Instargram-projects/blob/master/database-structure.pdf)
 
-#### 2. 그린 모델과 필드를 작성하고 마이그레이션을 시도
 ```python
 from django.db import models
 
@@ -54,6 +54,8 @@ class CommentLike(models.Model):
 class Tag(models.Model):
     pass
 ```
+
+#### 2. 설계한 모델과 필드를 작성하고 마이그레이션을 시도
 - 아래와 같은 에러 발생
 
 ```text
@@ -98,3 +100,15 @@ class Comment(models.Model):
 #...
 ```
 - 마이그레이션 에러를 극복했다!
+- [Click!](https://github.com/bbungsang/Instargram-projects/blob/master/clash-error.pdf)
+
+### 3. POST에 COMMENT를 추가할 수 있는 함수 구현
+- 보통 처음에 함수 인스턴스까지 생각하고 애초에 모델에 적용했어야 했던게 맞는건지, 하다가 필요한 기능이 생기면 그 때 적용해도 되는건지 아직은 감이 안 잡히지만,
+- 댓글 추가와 관련된 데이터를 가져올 수 있는 함수를 모델 첫 번째 마이그레이션을 마친 후 구현해본다.
+- 한 POST에 댓글을 추가하는 방식이므로 POST모델에서 COMMENT모델을 역참조하여 해당 데이터를 가져올 수 있도록 한다.
+
+```python
+def add_comment(self, user, content):
+    return self.post_set.create(author=user, content=content)
+```
+- 외부에서 user값과 content값을 받아서 COMMENT모델에 해당 데이터를 생성한다.

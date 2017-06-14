@@ -20,6 +20,9 @@ class Post(models.Model):
         related_name='like_posts',
     )
 
+    def add_comment(self, user, content):
+        return self.post_set.create(author=user, content=content)
+
 
 class PostLike(models.Model):
     user = models.ForeignKey(User)
