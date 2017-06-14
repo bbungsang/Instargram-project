@@ -1,8 +1,8 @@
-### 0. 어플리케이션 'post'를 생성하고, settings.py에 등록
+#### 0. 어플리케이션 'post'를 생성하고, settings.py에 등록
 
-### 1. 모델 설계하기
+#### 1. 모델 설계하기
 
-### 2. 그린 모델과 필드를 작성하고 마이그레이션을 시도
+#### 2. 그린 모델과 필드를 작성하고 마이그레이션을 시도
 ```python
 from django.db import models
 
@@ -56,7 +56,7 @@ class Tag(models.Model):
 ```
 - 아래와 같은 에러 발생
 
-```python
+```text
 'Post.author' clashes with reverse accessor for 'Post.like_user'
 'Post.like_user' clashes with reverse accessor for 'Post.author'
 'Comment.author' clashes with reverse accessor for 'Comment.like_user'
