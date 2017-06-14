@@ -1,21 +1,23 @@
 from django.db import models
 
+from django.conf import settings
 
-class User(models.Model):
-    name = models.CharField(max_length=36)
 
-    def __str__(self):
-        return self.name
+# class User(models.Model):
+#     name = models.CharField(max_length=36)
+#
+#     def __str__(self):
+#         return self.name
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     photo = models.ImageField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
     like_users = models.ManyToManyField(
-        User,
+        settings.AUTH_USER_MODEL,
         through='PostLike',
         related_name='like_posts',
     )
@@ -28,20 +30,20 @@ class Post(models.Model):
 
 
 class PostLike(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     post = models.ForeignKey(Post)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     post = models.ForeignKey(Post)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_ad = models.DateTimeField(auto_now=True)
 
     like_users = models.ManyToManyField(
-        User,
+        settings.AUTH_USER_MODEL,
         through='CommentLike',
         related_name='like_comments',
     )
@@ -51,7 +53,7 @@ class Comment(models.Model):
 
 
 class CommentLike(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.ForeignKey(Comment)
     created_at = models.DateTimeField(auto_now_add=True)
 
