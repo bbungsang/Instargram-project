@@ -17,6 +17,7 @@ class Post(models.Model):
     like_user = models.ManyToManyField(
         User,
         through='PostLike',
+        related_name='like_posts',
     )
 
 
@@ -36,6 +37,7 @@ class Comment(models.Model):
     like_user = models.ManyToManyField(
         User,
         through='CommentLike',
+        related_name='like_comments',
     )
 
 
