@@ -1,7 +1,5 @@
+{% extends 'common/base.html' %}
 
-<ul>
-    <li>
-        <p>{{ post.author }}</p>
-        <img src="{{ post.photo.url }}">
-    </li>
-</ul>
+{% block content %}
+    {% include 'include/post.html' %}
+{% endblock %}

@@ -1,0 +1,66 @@
+<article class="post">
+
+    <!-- photo 상단 user 이미지와 username -->
+    <header>
+        <div class="post-header-left">
+            <img src="" alt="">
+            <span>{{ post.author }}</span>
+        </div>
+        <div class="post-header-right"></div>
+    </header>
+
+    <div class="post-photo-container">
+        <!--
+        이미지에 걸린 a 태그를 클릭하면,
+        url 태그를 사용하여 post:post_detail 뷰로 이동하는 URL 을 reverse 한다.
+        이 때, post 의 pk 값을 post_pk 에 할당하여 post_detail 뷰에 인자로 넘긴다.
+        -->
+
+        <!-- list 타입이면 post_detail 페이지로 넘어가기 위한 a 태그를 이미지에 삽입한다. -->
+        {% if type == 'list' %}
+        <a href="{% url 'post:post_detail' post_pk=post.pk %}">
+            <img src="{{ post.photo.url }}">
+        </a>
+
+        <!-- 그렇지 않으면 다른 페이지로 넘어갈 필요가 없으므로 이미지만 출력한다. -->
+        {% else %}
+        <img src="{{ post.photo.url }}">
+
+        {% endif %}
+    </div>
+
+    <div class="post-btn-container">
+        <a href="#">
+            <img src="" alt="">
+        </a>
+        <a href="#">
+            <img src="" alt="">
+        </a>
+    </div>
+
+    <div class="post-like">
+        <p>
+            좋아요 {{ post.like_count }}개
+        </p>
+    </div>
+
+    <div class="post-comment-container">
+        {% for comment in post.comment_set.all %}
+        <div class="post-comment">
+            <a href="#" class="comment-author">
+                {{ comment.author }}
+            </a>
+            <span class="comment-content">
+                {{ comment.content }}
+            </span>
+            <a href="#" class="comment-tag"></a>
+        </div>
+        {% endfor %}
+    </div>
+    <p class="created">{{ post.created_date }}</p>
+
+    <form action="" menthod="POST">
+        <input type="text" placeholder="">
+        <button type="submit">댓글달기</button>
+    </form>
+</article>
