@@ -1,0 +1,30 @@
+@import 'variables';
+
+html, body {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+input[type=text], input[type=password] {
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  color: #262626;
+  font-size: 12px;
+  outline: none;
+  padding: 6px 10px;
+  background-color: #fafafa;
+}
+
+input[type=file] {
+  font-size: 10px;
+}
+
+a {
+
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}

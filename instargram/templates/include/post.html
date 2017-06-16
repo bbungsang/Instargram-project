@@ -17,7 +17,7 @@
         -->
 
         <!-- list 타입이면 post_detail 페이지로 넘어가기 위한 a 태그를 이미지에 삽입한다. -->
-        {% if type == 'list' %}
+        {% if type == list %}
         <a href="{% url 'post:post_detail' post_pk=post.pk %}">
             <img src="{{ post.photo.url }}">
         </a>
