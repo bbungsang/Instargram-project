@@ -1,15 +1,15 @@
-## 첫 뷰, 첫 URL, 첫 템플릿 설정하기
-### 첫 뷰 구상하기
+## 첫번째 뷰, URL, 템플릿 설정하기
+### 첫번째 뷰 구상하기
 - Post 모델의 데이터를 전부 불러와서 리스트 형태로 화면에 순차적으로 출력
 
 [post/views.py]
 ```python
 from django.shortcuts import render
 
-# 1. Post 모델을 호출할 것이므로 models.py의 Post를 임포트한다.
+# 1. Post 모델을 호출할 것이므로 models.py 의 Post 를 임포트한다.
 from .models import Post
 
-# 2. url로 부터 전달되어 실행할 함수를 작성한다.
+# 2. url 로 부터 전달되어 실행할 함수를 작성한다.
 def post_list(request):
 
   # 3. Post 모델의 모든 데이터를 이터레이터 형태로 받아와서 posts 변수에 할당
@@ -28,7 +28,7 @@ def post_list(request):
   )
 ```
 
-### 첫 URL 구상하기
+### 첫번째 URL 구상하기
 - 등록한 어플리케이션의 뷰를 사용하기 위해서는 프로젝트 urls.py 에 include 시켜줘야한다. 이 경우 어플리케이션을 생성할 때마다 1번만 해주면 된다.
 
 [config/urls.py]
@@ -55,7 +55,7 @@ urlpatterns = [
 ]
 ```
 
-### 첫 템플릿 구상하기
+### 첫번째 템플릿 구상하기
 - 여러 어플리케이션이 공통으로 템플릿을 이용할 수 있도록 루트 폴더 아래 템플릿 폴더를 지정할 것이다. 이를 위해서 우선 settings.py에서 템플릿을 인식할 폴더의 위치를 아래와 같이 명시해줘야 한다.
 
 [config/settins.py]
@@ -74,18 +74,18 @@ TEMPLATES = [
   }
   #...
 ```
-- 이렇게 하고 /post/ 의 URL로 접속하면 화면이 잘 뜬다. 하지만 이미지를 못 불러온다. 이미지를 불러올 수 있도록 몇 가지 설정해야 할 부분이 있다.
+- 이제 /post/ 의 URL로 접속하면 화면이 잘 뜬다. 하지만 이미지를 못 불러온다. 이미지를 불러올 수 있도록 몇 가지 설정해야 할 부분이 있다.
 
 
 1. Pillow 설치하기(Ubuntu 기준)
 
-  - Pillow를 설치하기 전에 설치해야 할 것
+  - Pillow 를 설치하기 전에 설치해야 할 것
   - $sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev \
 libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
 - 사전 설치작업 완료 후, Pillow 설치하기
   - $ pip install Pillow
 
-2. 루트 폴더 아래 'media' 폴더 생성 후, settings.py에서 경로 설정과 urls.py에 media의 파일을 읽어올 수 있도록 아래와 같이 지정해준다.
+2. 루트 폴더 아래 `media` 폴더 생성 후, settings.py 에서 경로 설정과 urls.py 에 media 의 파일을 읽어올 수 있도록 아래와 같이 지정해준다.
 
 [config/settings.py]
 ```python
@@ -106,4 +106,4 @@ urlpatterns = [
   ...
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
-- 이미지 출력 완료!
+- 이미지 출력 성공!
