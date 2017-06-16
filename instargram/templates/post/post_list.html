@@ -1,0 +1,9 @@
+
+<ul>
+    {% for post in posts %}
+    <li>
+        <p>{{ post.author }}</p>
+        <img src="{{ post.photo.url }}" alt="">
+    </li>
+    {% endfor %}
+</ul>
