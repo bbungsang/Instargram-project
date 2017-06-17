@@ -38,8 +38,13 @@
                         <img src="{% static 'images/icon_profile.png' %}">
                     </a>
                     <div id="profile-dropdown" class="dropdown-content">
-                        <a href="#">LogIn</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'member:logout' %}">LogOut</a>
                         <a href="#">Settings</a>
+                        {% else %}
+                        <a href="{% url 'member:login' %}">LogIn</a>
+                        <a href="#">SignUp</a>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
