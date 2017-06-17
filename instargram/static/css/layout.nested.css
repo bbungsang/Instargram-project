@@ -28,9 +28,29 @@ header.top-header > nav:nth-child(1) {
       display: none; } }
   header.top-header > nav:nth-child(1) .nav-right {
     width: 150px;
-    float: right; }
+    float: right;
+    position: relative;
+    /* Profile Dropdown */ }
     header.top-header > nav:nth-child(1) .nav-right a {
       padding: 0 10px; }
+    header.top-header > nav:nth-child(1) .nav-right .dropbtn {
+      cursor: pointer; }
+    header.top-header > nav:nth-child(1) .nav-right .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1; }
+      header.top-header > nav:nth-child(1) .nav-right .dropdown-content.show {
+        display: block; }
+      header.top-header > nav:nth-child(1) .nav-right .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block; }
+      header.top-header > nav:nth-child(1) .nav-right .dropdown-content a:hover {
+        border-color: #f1f1f1; }
 
 header.top-header > nav:nth-child(2) {
   border-top: 1px solid rgba(0, 0, 0, 0.0975);
@@ -41,6 +61,26 @@ header.top-header > nav:nth-child(2) {
     margin: 0 auto; }
 
 /* container */
+.container {
+  max-width: 1010px;
+  margin: 0 auto;
+  padding-top: 40px; }
+  @media screen and (max-width: 700px) {
+    .container {
+      padding-top: 0; } }
+
+.container > .content {
+  padding: 10px; }
+
+form.form-inline-login {
+  font-size: 11px; }
+  form.form-inline-login label {
+    margin-right: 5px; }
+  form.form-inline-login input {
+    padding: 5px 8px;
+    font-size: 11px;
+    margin-right: 6px; }
+
 .container {
   max-width: 1010px;
   margin: 0 auto;

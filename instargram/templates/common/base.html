@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/common.css' %}">
-
 </head>
 <body>
     <div id="wrap">
@@ -34,9 +33,14 @@
                     <a href="#">
                         <img src="{% static 'images/icon_heart.png' %}">
                     </a>
-                    <a href="#">
+
+                    <a href="#" id="profile-icon" class="popup">
                         <img src="{% static 'images/icon_profile.png' %}">
                     </a>
+                    <div id="profile-dropdown" class="dropdown-content">
+                        <a href="#">LogIn</a>
+                        <a href="#">Settings</a>
+                    </div>
                 </div>
             </nav>
         </header>
@@ -46,5 +50,35 @@
     {% block content %}
     {% endblock %}
     </div>
+
+    <script>
+        function profileIconClickHandler(e) {
+            document.getElementById("profile-dropdown").classList.toggle("show");
+            e.stopPropagation();
+        }
+
+        function profileDropdownClickHandler(e) {
+            e.stopPropagation();
+        }
+
+        document.getElementById("profile-icon").addEventListener(
+            "click",
+            profileIconClickHandler
+        );
+
+        document.getElementById("profile-dropdown").addEventListener(
+            "click",
+            profileDropdownClickHandler
+        );
+        
+        window.addEventListener("click", function () {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i<dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                openDropdown.classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>
