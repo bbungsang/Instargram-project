@@ -11,6 +11,7 @@ class LoginForm(forms.Form):
             },
         ),
     )
+
     password = forms.CharField(
       widget=forms.PasswordInput(
           attrs={
@@ -20,7 +21,6 @@ class LoginForm(forms.Form):
     )
 
     def clean(self):
-
         username = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
 

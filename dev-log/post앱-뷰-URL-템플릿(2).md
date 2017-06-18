@@ -81,7 +81,7 @@ urlpatterns = [
 
 [include/post.html]
 ```python
-#... 템플릿 언어를 활용해서 작성, 깃 코트 참조
+#... 템플릿 언어를 활용해서 작성, 깃 코드 참조
 ```
 
 [post_list.html], [post_detail] 에 include
@@ -94,4 +94,4 @@ urlpatterns = [
 > Git Code Address ヾ(๑ㆁᗜㆁ๑)ﾉ
 - [post/veiws.py](https://github.com/bbungsang/Instargram-projects/blob/master/instargram/post/views.py)
 - [post/urls.py](https://github.com/bbungsang/Instargram-projects/blob/master/instargram/post/urls.py)
-- [templates](https://github.com/bbungsang/Instargram-projects/tree/master/instargram/templates) 
+- [templates](https://github.com/bbungsang/Instargram-projects/tree/master/instargram/templates)
