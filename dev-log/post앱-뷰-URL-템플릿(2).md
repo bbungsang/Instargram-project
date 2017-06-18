@@ -92,6 +92,6 @@ urlpatterns = [
 - 'include'를 통해 post.html 을 포함시킨다.
 
 > Git Code Address ヾ(๑ㆁᗜㆁ๑)ﾉ
-- [post/veiws.py](https://github.com/bbungsang/Instargram-projects/blob/master/instargram/post/views.py)
-- [post/urls.py](https://github.com/bbungsang/Instargram-projects/blob/master/instargram/post/urls.py)
-- [templates](https://github.com/bbungsang/Instargram-projects/tree/master/instargram/templates)
+- [post/veiws.py](https://github.com/bbungsang/Instargram-project/blob/master/instargram/post/views.py)
+- [post/urls.py](https://github.com/bbungsang/Instargram-project/blob/master/instargram/post/urls.py)
+- [templates](https://github.com/bbungsang/Instargram-project/tree/master/instargram/templates)

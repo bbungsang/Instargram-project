@@ -1,7 +1,7 @@
 ### 0. 어플리케이션 'post'를 생성하고, settings.py에 등록
 
 ### 1. 모델 설계하기
-- [Click!](https://github.com/bbungsang/Instargram-projects/blob/master/database-structure.pdf)
+- [Click!](https://github.com/bbungsang/Instargram-project/blob/master/database-structure.pdf)
 
 ```python
 from django.db import models
@@ -66,7 +66,7 @@ class Tag(models.Model):
 ```
 - 이와 같은 에러는 지극히 개인적으로 해석한 바, Post/Comment 모델이 User 모델에 ForeignKey 와 ManyToMany 를 걸고 있고, 이로써 Post/Comment 모델과 User 모델에 생성된 `reverse relation` 에 FK에 대한 post_set/comment_set 속성, MTM에 대한 post_set/comment_set 속성이 각각 생성될 것이다. 즉, reverse relation 의 중복된 속성명에 대한 충돌이 일어난 것.
 - 따라서 둘 중 하나에 post_set/comment_set의 이름을 바꿔줘야한다. MTM을 건 각각의 like_user 에 related_name 을 줌으로써 이 충돌을 방지한다.
-- [Click!](https://github.com/bbungsang/Instargram-projects/blob/master/clash-error.pdf)
+- [Click!](https://github.com/bbungsang/Instargram-project/blob/master/clash-error.pdf)
 
 ```python
 #...
