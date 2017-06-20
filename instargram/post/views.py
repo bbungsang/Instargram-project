@@ -4,7 +4,12 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.urls import reverse
 
-from .models import Post
+from .models import Post, Comment
+from .forms import PostForm
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+
+User = get_user_model()
 
 
 def post_list(request):
@@ -56,3 +61,49 @@ def post_detail(request, post_pk):
     # 템플릿 객체를 render() 를 통해서 string 으로 변환하고 render_to_string 변수에 할당한다.
     render_to_string = template.render(context=context, request=request)
     return HttpResponse(render_to_string)
+
+
+def post_create(request):
+    if request.method == 'POST':
+
+        '''
+        # 1) PostForm 을 쓰지 않았을 경우,
+        user = User.objects.first()
+
+        post = Post.objects.create(
+            author=user,
+            photo=request.FILES['photo']
+        )
+
+        # POST 요청으로 받은 comment 인자의 value 를 comment_string 변수에 할당
+        # value 가 없을 경우(빈 문자열이거나 None), False 로 평가된다.
+        comment_string = request.POST.get('comment', '')
+
+        # if 문을 통해서 comment 의 존재 여부를 판단
+        if comment_string:
+            # 1-1. Comment 모델을 Post 모델에서 역참조하여 데이터를 처리한다.
+            post.comment_set.create(
+                author=user,
+                content=comment_string,
+            )
+
+            # 1-2. 바로 Comment 모델에 접근하여 데이터를 처리한다.
+            Comment.objects.create(
+                post=post,
+                author=user,
+                content=comment_string,
+            )
+        '''
+
+        '''
+        2) PostForm 을 사용할 경우,
+            1. 폼 위젯을 생성한다. [forms/post.py]
+            2. 폼으로부터 얻어온 데이터를 form 변수에 할당한다. [views/post.py]
+            3. form 변수를 활용하여 폼 유효성 메서드를 실행한다. [views/post.py]
+            4. form 변수를 통해 save(author='request.user') 를 실행하고, post 변수에 할당한다. [views/post.py]
+            5. save() 메서드를 작성한다. [forms/post.py]
+        '''
+
+        return redirect('post:post_detail', post_pk=post.pk)
+    else:
+        return render(request, 'post/post_create.html')

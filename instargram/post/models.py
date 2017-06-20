@@ -22,6 +22,9 @@ class Post(models.Model):
         related_name='like_posts',
     )
 
+    class Meta:
+        ordering = ['-pk']
+
     def add_comment(self, user, content):
         return self.post_set.create(author=user, content=content)
 
