@@ -16,6 +16,13 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    my_comment = models.OneToOneField(
+        'Comment',
+        blank=True,
+        null=True,
+        related_name='+',
+    )
+
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         through='PostLike',

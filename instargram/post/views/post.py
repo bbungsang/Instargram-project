@@ -1,11 +1,11 @@
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.urls import reverse
 
-from .models import Post, Comment
-from .forms import PostForm
+from ..models import Post, Comment
+from ..forms import PostForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
@@ -100,10 +100,31 @@ def post_create(request):
             1. 폼 위젯을 생성한다. [forms/post.py]
             2. 폼으로부터 얻어온 데이터를 form 변수에 할당한다. [views/post.py]
             3. form 변수를 활용하여 폼 유효성 메서드를 실행한다. [views/post.py]
-            4. form 변수를 통해 save(author='request.user') 를 실행하고, post 변수에 할당한다. [views/post.py]
+            4. form 변수를 통해 save(author='request.user') -> commit=False 를 실행하고, 반환된 인스터스를 post 변수에 할당한다. [views/post.py]
             5. save() 메서드를 작성한다. [forms/post.py]
         '''
+        form = PostForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            post = form.save(author=request.user)
+            return redirect('post:post_detail', post_pk=post.pk)
+    else:
+        form = PostForm()
 
+    context = {
+        'form': form,
+    }
+    return render(request, 'post/post_create.html', context)
+
+
+def post_modify(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    form = PostForm(data=request.POST, files=request.FILES, instance=post)
+    if request.method == "POST":
+        form.save()
         return redirect('post:post_detail', post_pk=post.pk)
     else:
-        return render(request, 'post/post_create.html')
+        form = PostForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'post/post_create.html', context)
