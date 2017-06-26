@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'post',
     'member',
 
-    'django_custom_user_migration',
     'django_extensions',
 ]
 

@@ -1,6 +1,5 @@
 <article class="post">
 
-    <!-- photo 상단 user 이미지와 username -->
     <header>
         <div class="post-header-left">
             <img src="" alt="">
@@ -10,19 +9,10 @@
     </header>
 
     <div class="post-photo-container">
-        <!--
-        이미지에 걸린 a 태그를 클릭하면,
-        url 태그를 사용하여 post:post_detail 뷰로 이동하는 URL 을 reverse 한다.
-        이 때, post 의 pk 값을 post_pk 에 할당하여 post_detail 뷰에 인자로 넘긴다.
-        -->
-
-        <!-- list 타입이면 post_detail 페이지로 넘어가기 위한 a 태그를 이미지에 삽입한다. -->
-        {% if type == list %}
+        {% if type == 'list' %}
         <a href="{% url 'post:post_detail' post_pk=post.pk %}">
             <img src="{{ post.photo.url }}">
         </a>
-
-        <!-- 그렇지 않으면 다른 페이지로 넘어갈 필요가 없으므로 이미지만 출력한다. -->
         {% else %}
         <img src="{{ post.photo.url }}">
 
@@ -59,8 +49,9 @@
     </div>
     <p class="created">{{ post.created_date }}</p>
 
-    <form action="" menthod="POST" class="form-inline">
-        <input type="text" placeholder="">
+    <form action="{% url 'post:comment_create' post_pk=post.pk %}" method="POST" class="form-inline">
+        {% csrf_token %}
+        {{ comment_form }}
         <button type="submit">댓글달기</button>
     </form>
 </article>

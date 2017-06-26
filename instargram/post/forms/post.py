@@ -33,11 +33,12 @@ class PostForm(forms.ModelForm):
             self.instance.author = author
 
         instance = super().save(**kwargs)
-
+        print("1.", instance.author)
+        print("2.", instance.pk)
+        print("3.", instance.my_comment)
         comment_string = self.cleaned_data['comment']
 
         if commit and comment_string:
-
             if instance.my_comment:
                 instance.my_comment.content = comment_string
                 instance.my_comment.save()
@@ -47,5 +48,5 @@ class PostForm(forms.ModelForm):
                     author=author,
                     content=comment_string,
                 )
-        print(instance.my_comment.content)
+            # instance.save()
         return instance

@@ -7,6 +7,8 @@ from django.urls import reverse
 from ..models import Post, Comment
 from ..forms import PostForm
 from django.contrib.auth import get_user_model
+from post.forms.comment import CommentForm
+
 from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
@@ -16,6 +18,7 @@ def post_list(request):
     posts = Post.objects.all()
     context = {
         'posts': posts,
+        'comment_form': CommentForm(),
     }
     return render(
         request,
@@ -106,6 +109,8 @@ def post_create(request):
         form = PostForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             post = form.save(author=request.user)
+            # my_comment 생성한 것에 대한 저장을 반드시해야, my_comment pk 를 통해서 수정도 가능하다!
+            post.save()
             return redirect('post:post_detail', post_pk=post.pk)
     else:
         form = PostForm()
@@ -128,3 +133,4 @@ def post_modify(request, post_pk):
             'form': form,
         }
         return render(request, 'post/post_create.html', context)
+
