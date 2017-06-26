@@ -134,3 +134,15 @@ def post_modify(request, post_pk):
         }
         return render(request, 'post/post_create.html', context)
 
+
+def post_like_toggle(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+
+    post_like, post_like_created = post.postlike_set.get_or_create(
+        user=request.user,
+    )
+
+    if not post_like_created:
+        post_like.delete()
+
+    return redirect('post:post_detail', post_pk=post.pk)

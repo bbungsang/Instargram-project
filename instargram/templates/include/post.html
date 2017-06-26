@@ -1,3 +1,5 @@
+{% load static %}
+
 <article class="post">
 
     <header>
@@ -20,12 +22,22 @@
     </div>
 
     <div class="post-btn-container">
-        <a href="#">
-            <img src="" alt="">
-        </a>
-        <a href="#">
-            <img src="" alt="">
-        </a>
+        <div class="post-btn-left">
+            <form action="{% url 'post:post_like_toggle' post_pk=post.pk %}" method="POST" class="form-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn">
+                    {% if user in post.like_users.all %}
+                    <img src="{% static 'images/post_like.png' %}">
+                    {% else %}
+                    <img src="{% static 'images/post_unlike.png' %}">
+                    {% endif %}
+                </button>
+            </form>
+            <a href="#">
+                <img src="" alt="">
+            </a>
+        </div>
+        <div class="post-btn right"></div>
     </div>
 
     <div class="post-like">
